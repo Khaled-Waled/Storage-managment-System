@@ -9,22 +9,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class StorageManagmentSystem implements ActionListener {
+	//Login and sign up screens
 	private static JFrame loginFrame,signFrame,mainFrame;
-	private static JPanel loginPanel,signPanel,mainPanel;
+	private static JPanel loginPanel,signPanel;
 	private static JLabel username,password,newAcc,title,address,phone,email;
 	private static JPasswordField loginPass;
 	private static JTextField loginusername,addText,phoneText,emailText;
 	private static JButton login,sign;
-	
+
+	//Admin screen
+	private static JFrame adminFrame;
+	private static JTabbedPane mainTabbedPanel;
+	private static JPanel usersPanel, statsPanel,transPanel ;
+	private static ImageIcon suitcaseIcon = new ImageIcon("images/suitcase.png");
+	private static ImageIcon transIcon = new ImageIcon("images/trans.png");
+	private static ImageIcon statsIcon = new ImageIcon("images/stats.png");
+
 	public static void main(String []args) {
 
 		LoginForm();
@@ -204,18 +207,36 @@ public class StorageManagmentSystem implements ActionListener {
 	 * main screen for user
 	 */
 	public static void MainScreen() {
-		mainFrame= new JFrame("واجهة");
-		//makes the frame the size of the screen
-		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		mainFrame.setResizable(false);
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		mainPanel=new JPanel();
-		mainPanel.setLayout(null);
-		
-		mainFrame.add(mainPanel);
-		mainFrame.setLocationRelativeTo(null);
-		mainFrame.setVisible(true);
+		//Admin frame
+		adminFrame= new JFrame("واجهة المدير");
+		adminFrame.setSize(1280,720);
+		adminFrame.setResizable(false);
+		adminFrame.setLayout(null);
+		adminFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		adminFrame.setVisible(true);
+		mainTabbedPanel = new JTabbedPane(JTabbedPane.RIGHT);
+		mainTabbedPanel.setBounds(40, 30, 1200, 600);
+
+		//Users Tab
+		usersPanel =new JPanel();
+		usersPanel.setLayout(null);
+		mainTabbedPanel.addTab("عرض المستخدمين", suitcaseIcon,usersPanel);
+
+		//Statistics Tab
+		statsPanel =new JPanel();
+		statsPanel.setLayout(null);
+		mainTabbedPanel.addTab("عرض التقرير العام", statsIcon,statsPanel);
+
+		//Transactions Tab
+		transPanel =new JPanel();
+		transPanel.setLayout(null);
+		mainTabbedPanel.addTab("عرض المعاملات", transIcon,transPanel);
+
+
+		JLabel title = new JLabel("شاشة المدير");
+		title.setBounds(560,10,80,10);
+		adminFrame.add(title);
+		adminFrame.add(mainTabbedPanel);
 	}
 	
 	
