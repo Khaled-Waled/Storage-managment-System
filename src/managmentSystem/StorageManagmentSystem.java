@@ -1,11 +1,6 @@
 package managmentSystem;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.ComponentOrientation;
-import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -14,6 +9,13 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 public class StorageManagmentSystem implements ActionListener {
+
+	//declaring that many variables here made it messy and cluttered
+	//each function now includes its own variables
+	//it shouldn't be an issue because we don't reuse elements from another function
+	//Note:		elements that use action listener should stay here
+	//معلش شيل الباقي دول حطهم مع اللي تحت علشان معرفش ايه اللي ممكن يبوظ
+
 	//Login and sign up screens
 	private static JFrame loginFrame,signFrame,mainFrame;
 	private static JPanel loginPanel,signPanel;
@@ -22,29 +24,15 @@ public class StorageManagmentSystem implements ActionListener {
 	private static JTextField loginusername,addText,phoneText,emailText;
 	private static JButton login,sign;
 
-	//Admin screen
-	private static JFrame adminFrame;
-	private static JTabbedPane mainTabbedPanel;
-	private static JPanel usersPanel, statsPanel,transPanel,inventoryPanel ;
-	private static ImageIcon suitcaseIcon = new ImageIcon("images/suitcase.png");
-	private static ImageIcon transIcon = new ImageIcon("images/trans.png");
-	private static ImageIcon statsIcon = new ImageIcon("images/stats.png");
-	private static ImageIcon invIcon = new ImageIcon("images/inventory.png");
-	
-	//JTable
-	private static String col[]= {"ID","name","price","supplier_ID", "total_quantity", "expiry_data"};
-	private static String data[][]= {{"1","bleach","23 EGP","298","13","23/12/2022"}};
-	private static JTable invTable;
-	private static JScrollPane scrollPane;
 
-	public static void main(String []args) {
+	//Admin Top Right Panel
+	private static JComboBox userTypesComBox;	private static String userTypesBox_selectedItem;
 
+
+	public static void main(String []args)
+	{
 		LoginForm();
-		
-		
-		
-		
-}
+	}
 	/**
 	 * create the login form
 	 */
@@ -63,7 +51,7 @@ public class StorageManagmentSystem implements ActionListener {
 		
 		//Add labels
 		username=new JLabel("الإسم");
-		password=new JLabel("باسوورد");
+		password=new JLabel("كلمة المرور");
 		username.setFont(new Font("Serif", Font.BOLD, 22));
 		password.setFont(new Font("Serif", Font.BOLD, 22));
 		username.setBounds(360, 20, 90, 40);
@@ -215,7 +203,17 @@ public class StorageManagmentSystem implements ActionListener {
 	/**
 	 * main screen for user
 	 */
-	public static void MainScreen() {
+	public static void adminScreen()
+	{
+		//Variables declaration
+		JFrame adminFrame;
+		JTabbedPane mainTabbedPanel;
+		JPanel usersTab, statsPanel,transPanel,inventoryPanel ;
+		ImageIcon suitcaseIcon = new ImageIcon("images/suitcase.png");
+		ImageIcon transIcon = new ImageIcon("images/trans.png");
+		ImageIcon statsIcon = new ImageIcon("images/stats.png");
+		ImageIcon invIcon = new ImageIcon("images/inventory.png");
+
 		//Admin frame
 		adminFrame= new JFrame("واجهة المدير");
 		adminFrame.setSize(1280,720);
@@ -227,9 +225,62 @@ public class StorageManagmentSystem implements ActionListener {
 		mainTabbedPanel.setBounds(40, 30, 1200, 600);
 
 		//Users Tab
-		usersPanel =new JPanel();
-		usersPanel.setLayout(null);
-		mainTabbedPanel.addTab("عرض المستخدمين", suitcaseIcon,usersPanel);
+		usersTab =new JPanel();
+		usersTab.setLayout(new GridLayout(1,2));
+
+		////Left Half
+		JPanel allUsersPanel = new JPanel();
+		allUsersPanel.setLayout(null);
+		JLabel admin_Label_L1 = new JLabel("جميع المستخدمين");
+		admin_Label_L1.setFont(new Font("Serif", Font.BOLD,22));
+		admin_Label_L1.setBounds(200,10,200,20);
+		allUsersPanel.add(admin_Label_L1);
+		String usersTableCol[] = {"الرقم التعريفي","نوع المستخدم","الاسم الاخير","الاسم الاول"};
+		String usersTableData[][] = {	{"111","كاشير","وليد","خالد"},
+										{"222","مدير","اسامة","عبد الرحمن"},
+										{"333","مشرف مخزن","سينا","جون"},
+										{"444","مدير","تاني","خالد"}
+									};
+		JTable allUsersTable = new JTable(usersTableData,usersTableCol);
+		JScrollPane scrollPane1 = new JScrollPane(allUsersTable);
+		scrollPane1.setBounds(30,40,450,500);
+		allUsersPanel.add(scrollPane1);
+		/////////
+
+
+		//Right Half
+		JPanel usersEditPanel = new JPanel(new GridLayout(2,1));
+		JPanel usersEditPanel_Top = new JPanel(null);
+		JPanel usersEditPanel_Bot = new JPanel();
+		JLabel admin_Label_RT1 = new JLabel("تعديل صلاحيات مستخدم");
+		JLabel admin_Label_RT2 = new JLabel("جعل المستخدم صاحب الرقم التعريفي:");
+		JLabel admin_Label_RT3 = new JLabel("يكون في وظيفة:");
+		JTextField ID_field1   = new JTextField();
+		String[] userTypes = {"مدير","كاشير","مشرف مخزن"};
+		userTypesComBox = new JComboBox(userTypes);
+
+		admin_Label_RT1.setBounds(200,10,200,20);
+		admin_Label_RT1.setFont(new Font("Serif", Font.BOLD,22));
+		admin_Label_RT2.setBounds(350,50,150,20);
+		admin_Label_RT3.setBounds(430,100,150,20);
+		ID_field1.setBounds(250,50,90,20);
+		userTypesComBox.setBounds(250,100,90,20);
+
+		usersEditPanel_Top.add(admin_Label_RT1);
+		usersEditPanel_Top.add(admin_Label_RT2);
+		usersEditPanel_Top.add(admin_Label_RT3);
+		usersEditPanel_Top.add(ID_field1);
+		usersEditPanel_Top.add(userTypesComBox);
+
+
+		usersEditPanel.add(usersEditPanel_Top,BorderLayout.NORTH);
+		usersEditPanel.add(usersEditPanel_Bot,BorderLayout.SOUTH);
+
+
+
+		usersTab.add(allUsersPanel);
+		usersTab.add(usersEditPanel);
+		mainTabbedPanel.addTab("قائمة المستخدمين", suitcaseIcon,usersTab);
 
 		//Statistics Tab
 		statsPanel =new JPanel();
@@ -246,15 +297,19 @@ public class StorageManagmentSystem implements ActionListener {
 		inventoryPanel =new JPanel();
 		inventoryPanel.setLayout(new GridLayout());
 		mainTabbedPanel.addTab("عرض  المخزن", invIcon,inventoryPanel);
-		invTable= new JTable(data,col);
-		scrollPane = new JScrollPane(invTable);
-		inventoryPanel.add(scrollPane,BorderLayout.CENTER);
-		
-		
-		
-		
-		
 
+		String invCol[]= {"الرقم التعريفي","الاسم","السعر","رقم المورد", "اجمالي المخزون", "تاريخ الانتهاء"};
+		String invData[][]= {{"1","منظف ارضيات","23 EGP","298","13","23/12/2022"}};
+
+		JTable invTable= new JTable(invData,invCol);
+		JScrollPane scrollPane2 = new JScrollPane(invTable);
+		inventoryPanel.add(scrollPane2,BorderLayout.CENTER);
+		
+		
+		
+		
+		
+		//finalizing admin screen
 		JLabel title = new JLabel("شاشة المدير");
 		title.setBounds(560,10,80,10);
 		adminFrame.add(title);
@@ -266,13 +321,22 @@ public class StorageManagmentSystem implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==login) {
-			MainScreen();
+			adminScreen();
 			loginFrame.dispose();
 			
 		}
 		if(e.getSource()==sign) {
-			MainScreen();
+			adminScreen();
 			signFrame.dispose();
 			
 		}
+
+		/*not sure if it can be used later or not
+		if(e.getSource()==userTypesBox)
+
+		{
+			JComboBox utBox = (JComboBox)e.getSource();
+			userTypesBox_selectedItem = (String)utBox.getSelectedItem();
+		}
+		*/
 	}}
