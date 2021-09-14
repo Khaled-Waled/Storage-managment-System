@@ -1,9 +1,11 @@
 package managmentSystem;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -23,10 +25,17 @@ public class StorageManagmentSystem implements ActionListener {
 	//Admin screen
 	private static JFrame adminFrame;
 	private static JTabbedPane mainTabbedPanel;
-	private static JPanel usersPanel, statsPanel,transPanel ;
+	private static JPanel usersPanel, statsPanel,transPanel,inventoryPanel ;
 	private static ImageIcon suitcaseIcon = new ImageIcon("images/suitcase.png");
 	private static ImageIcon transIcon = new ImageIcon("images/trans.png");
 	private static ImageIcon statsIcon = new ImageIcon("images/stats.png");
+	private static ImageIcon invIcon = new ImageIcon("images/inventory.png");
+	
+	//JTable
+	private static String col[]= {"ID","name","price","supplier_ID", "total_quantity", "expiry_data"};
+	private static String data[][]= {{"1","bleach","23 EGP","298","13","23/12/2022"}};
+	private static JTable invTable;
+	private static JScrollPane scrollPane;
 
 	public static void main(String []args) {
 
@@ -232,6 +241,19 @@ public class StorageManagmentSystem implements ActionListener {
 		transPanel.setLayout(null);
 		mainTabbedPanel.addTab("عرض المعاملات", transIcon,transPanel);
 
+		
+		//inventory Tab
+		inventoryPanel =new JPanel();
+		inventoryPanel.setLayout(new GridLayout());
+		mainTabbedPanel.addTab("عرض  المخزن", invIcon,inventoryPanel);
+		invTable= new JTable(data,col);
+		scrollPane = new JScrollPane(invTable);
+		inventoryPanel.add(scrollPane,BorderLayout.CENTER);
+		
+		
+		
+		
+		
 
 		JLabel title = new JLabel("شاشة المدير");
 		title.setBounds(560,10,80,10);
