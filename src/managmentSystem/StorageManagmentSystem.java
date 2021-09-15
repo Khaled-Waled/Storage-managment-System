@@ -10,23 +10,14 @@ import javax.swing.*;
 
 public class StorageManagmentSystem implements ActionListener {
 
-	//declaring that many variables here made it messy and cluttered
-	//each function now includes its own variables
-	//it shouldn't be an issue because we don't reuse elements from another function
-	//Note:		elements that use action listener should stay here
-	//معلش شيل الباقي دول حطهم مع اللي تحت علشان معرفش ايه اللي ممكن يبوظ
 
 	//Login and sign up screens
-	private static JFrame loginFrame,signFrame,mainFrame;
-	private static JPanel loginPanel,signPanel;
-	private static JLabel username,password,newAcc,title,address,phone,email;
-	private static JPasswordField loginPass;
-	private static JTextField loginusername,addText,phoneText,emailText;
+	private static JFrame loginFrame,signFrame, mainFrame;
 	private static JButton login,sign;
 
-
 	//Admin Top Right Panel
-	private static JComboBox userTypesComBox;	private static String userTypesBox_selectedItem;
+	private static JComboBox userTypesComBox;
+	private static String userTypesBox_selectedItem;
 
 
 	public static void main(String []args)
@@ -37,6 +28,14 @@ public class StorageManagmentSystem implements ActionListener {
 	 * create the login form
 	 */
 	public static void LoginForm() {
+		
+		//initialization
+		JPanel loginPanel;
+		JLabel username,password,newAcc;
+		JPasswordField loginPass;
+		JTextField loginusername;
+		
+		
 		loginFrame=new JFrame("تسجيل دخول");
 		loginFrame.setResizable(false);
 		
@@ -75,8 +74,8 @@ public class StorageManagmentSystem implements ActionListener {
 		//Add login button
 		login=new JButton("دخول");
 		login.setBounds(20, 140, 80, 35);
-		login.addActionListener(new StorageManagmentSystem());
 		login.setFont(new Font("Serif", Font.BOLD, 18));
+		login.addActionListener(new StorageManagmentSystem());
 		loginPanel.add(login);
 		
 		//Add hyperlink
@@ -106,6 +105,16 @@ public class StorageManagmentSystem implements ActionListener {
 	 * create the sign up form
 	 */
 	public static void SignUpForm() {
+		//initialization
+		JPanel signPanel;
+		JLabel username,password,newAcc,title,address,phone,email;
+		JPasswordField loginPass;
+		JTextField loginusername,addText,phoneText,emailText;
+		
+		
+		
+		
+		
 		signFrame=new JFrame("حساب جديد");
 		//make the screen unresizable
 		signFrame.setResizable(false);
@@ -261,8 +270,8 @@ public class StorageManagmentSystem implements ActionListener {
 
 		admin_Label_RT1.setBounds(200,10,200,20);
 		admin_Label_RT1.setFont(new Font("Serif", Font.BOLD,22));
-		admin_Label_RT2.setBounds(350,50,150,20);
-		admin_Label_RT3.setBounds(430,100,150,20);
+		admin_Label_RT2.setBounds(345,50,150,20);
+		admin_Label_RT3.setBounds(425,100,150,20);
 		ID_field1.setBounds(250,50,90,20);
 		userTypesComBox.setBounds(250,100,90,20);
 
