@@ -233,6 +233,7 @@ public class StorageManagmentSystem implements ActionListener {
 		mainTabbedPanel = new JTabbedPane(JTabbedPane.RIGHT);
 		mainTabbedPanel.setBounds(40, 30, 1200, 600);
 
+
 		//Users Tab
 		usersTab =new JPanel();
 		usersTab.setLayout(new GridLayout(1,2));
@@ -265,6 +266,7 @@ public class StorageManagmentSystem implements ActionListener {
 		JLabel admin_Label_RT2 = new JLabel("جعل المستخدم صاحب الرقم التعريفي:");
 		JLabel admin_Label_RT3 = new JLabel("يكون في وظيفة:");
 		JTextField ID_field1   = new JTextField();
+		JButton changeType_Button = new JButton("نفذ");
 		String[] userTypes = {"مدير","كاشير","مشرف مخزن"};
 		userTypesComBox = new JComboBox(userTypes);
 
@@ -274,11 +276,13 @@ public class StorageManagmentSystem implements ActionListener {
 		admin_Label_RT3.setBounds(425,100,150,20);
 		ID_field1.setBounds(250,50,90,20);
 		userTypesComBox.setBounds(250,100,90,20);
+		changeType_Button.setBounds(100,100,100,20);
 
 		usersEditPanel_Top.add(admin_Label_RT1);
 		usersEditPanel_Top.add(admin_Label_RT2);
 		usersEditPanel_Top.add(admin_Label_RT3);
 		usersEditPanel_Top.add(ID_field1);
+		usersEditPanel_Top.add(changeType_Button);
 		usersEditPanel_Top.add(userTypesComBox);
 
 
@@ -291,15 +295,6 @@ public class StorageManagmentSystem implements ActionListener {
 		usersTab.add(usersEditPanel);
 		mainTabbedPanel.addTab("قائمة المستخدمين", suitcaseIcon,usersTab);
 
-		//Statistics Tab
-		statsPanel =new JPanel();
-		statsPanel.setLayout(null);
-		mainTabbedPanel.addTab("عرض التقرير العام", statsIcon,statsPanel);
-
-		//Transactions Tab
-		transPanel =new JPanel();
-		transPanel.setLayout(null);
-		mainTabbedPanel.addTab("عرض المعاملات", transIcon,transPanel);
 
 		
 		//inventory Tab
@@ -308,16 +303,90 @@ public class StorageManagmentSystem implements ActionListener {
 		mainTabbedPanel.addTab("عرض  المخزن", invIcon,inventoryPanel);
 
 		String invCol[]= {"الرقم التعريفي","الاسم","السعر","رقم المورد", "اجمالي المخزون", "تاريخ الانتهاء"};
-		String invData[][]= {{"1","منظف ارضيات","23 EGP","298","13","23/12/2022"}};
+		String invData[][]= {{"1","منظف ارضيات","23 EGP","298","13","23/12/2022"},
+							 {"2","بسكويت سادة","5 EGP","666","89","17/09/2021"}};
 
 		JTable invTable= new JTable(invData,invCol);
 		JScrollPane scrollPane2 = new JScrollPane(invTable);
 		inventoryPanel.add(scrollPane2,BorderLayout.CENTER);
-		
-		
-		
-		
-		
+
+
+		//Statistics Tab
+		statsPanel =new JPanel();
+		statsPanel.setLayout(null);
+
+		JLabel adminStat_Title = new JLabel("التقرير العام");
+		JLabel adminStat_Label1 = new JLabel("إجمالي عدد الموظفين");
+		JLabel adminStat_Label1_data = new JLabel("4");
+		JLabel adminStat_Label2 = new JLabel("صافي الارباح البوم  ");
+		JLabel adminStat_Label2_data = new JLabel("798 EGP");
+		JLabel adminStat_Label3 = new JLabel("صافي ارباح الشهر   ");
+		JLabel adminStat_Label3_data = new JLabel("5812 EGP");
+
+
+		adminStat_Title.setBounds(500,30,100,30);
+		adminStat_Title.setFont(new Font("Serif", Font.BOLD, 22));
+		adminStat_Label1.setBounds(900,100,100,20);
+		adminStat_Label1_data.setBounds (780,100,100,20);
+		adminStat_Label2.setBounds(900,150,100,20);
+		adminStat_Label2_data.setBounds (780,150,50,20);
+		adminStat_Label3.setBounds(900,200,100,20);
+		adminStat_Label3_data.setBounds (780,200,100,20);
+
+
+
+
+		statsPanel.add(adminStat_Title);
+		statsPanel.add(adminStat_Label1);
+		statsPanel.add(adminStat_Label1_data);
+		statsPanel.add(adminStat_Label2);
+		statsPanel.add(adminStat_Label2_data);
+		statsPanel.add(adminStat_Label3);
+		statsPanel.add(adminStat_Label3_data);
+		mainTabbedPanel.addTab("عرض التقرير العام", statsIcon,statsPanel);
+
+		//Transactions Tab
+		transPanel =new JPanel();
+		transPanel.setLayout(null);
+		JLabel admin_Trans_Label1 = new JLabel("عرض معاملات الموظف رقم:");
+		JLabel admin_Trans_Label2 = new JLabel("عرض المعاملات من:      ");
+		JLabel admin_Trans_Label3 = new JLabel("عرض المعاملات الي:     ");
+		JTextField admin_Trans_TF1 = new JTextField();
+		JTextField admin_Trans_TF2 = new JTextField();			//This part could be changed to a calender
+		JTextField admin_Trans_TF3 = new JTextField();
+		JButton admin_Trans_B1 = new JButton("نفذ");
+		JButton admin_Trans_B2 = new JButton("نفذ");
+		String transTableCol[]= {"الرقم التعريفي","الكمية","رقم الموظف","رقم المنتج","رقم الخدمة"}; //Needs better translation
+		String transTableData[][] = {{"1","3","111","3","1"},{"2","2","111","5","1"},{"3","1","111","4","2"}};
+		JTable transTable = new JTable(transTableData,transTableCol);
+		JScrollPane scrollPane3 = new JScrollPane(transTable);
+
+
+		admin_Trans_Label1.setBounds(870,50 ,150,20);
+		admin_Trans_Label2.setBounds(880,100,150,20);
+		admin_Trans_Label3.setBounds(600,100,150,20);
+		admin_Trans_TF1.setBounds(730,50,100,20);
+		admin_Trans_TF2.setBounds(730,100,100,20);
+		admin_Trans_TF3.setBounds(480,100,100,20);
+		admin_Trans_B1.setBounds(350,50,60,20);
+		admin_Trans_B2.setBounds(350,100,60,20);
+		scrollPane3.setBounds(10,150,970,400);
+
+		transPanel.add(admin_Trans_Label1);
+		transPanel.add(admin_Trans_Label2);
+		transPanel.add(admin_Trans_Label3);
+		transPanel.add(admin_Trans_TF1);
+		transPanel.add(admin_Trans_TF2);
+		transPanel.add(admin_Trans_TF3);
+		transPanel.add(admin_Trans_B1);
+		transPanel.add(admin_Trans_B2);
+		transPanel.add(scrollPane3);
+
+
+		mainTabbedPanel.addTab("عرض المعاملات", transIcon,transPanel);
+
+
+
 		//finalizing admin screen
 		JLabel title = new JLabel("شاشة المدير");
 		title.setBounds(560,10,80,10);
