@@ -10,20 +10,29 @@ import javax.swing.*;
 
 public class StorageManagmentSystem implements ActionListener {
 
-
+	//log out button
+	private static JButton logOut1,logOut2;
 	//Login and sign up screens
-	private static JFrame loginFrame,signFrame, mainFrame;
+	private static JFrame loginFrame,signFrame;
 	private static JButton login,sign;
 
 	//Admin Top Right Panel
 	private static JComboBox userTypesComBox;
 	private static String userTypesBox_selectedItem;
-
-
+	private static JFrame adminFrame;
+	
+	//Casher Action Listener
+	private static JButton add,remove,check,refund,pay;
+	private static JFrame casherFrame;
+	
 	public static void main(String []args)
 	{
 		LoginForm();
+		
 	}
+	
+	
+	
 	/**
 	 * create the login form
 	 */
@@ -210,12 +219,12 @@ public class StorageManagmentSystem implements ActionListener {
 	
 	
 	/**
-	 * main screen for user
+	 * main screen for admin
 	 */
 	public static void adminScreen()
 	{
 		//Variables declaration
-		JFrame adminFrame;
+		
 		JTabbedPane mainTabbedPanel;
 		JPanel usersTab, statsPanel,transPanel,inventoryPanel ;
 		ImageIcon suitcaseIcon = new ImageIcon("images/suitcase.png");
@@ -224,14 +233,14 @@ public class StorageManagmentSystem implements ActionListener {
 		ImageIcon invIcon = new ImageIcon("images/inventory.png");
 
 		//Admin frame
-		adminFrame= new JFrame("واجهة المدير");
+		adminFrame= new JFrame("المدير");
 		adminFrame.setSize(1280,720);
 		adminFrame.setResizable(false);
 		adminFrame.setLayout(null);
 		adminFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		adminFrame.setVisible(true);
 		mainTabbedPanel = new JTabbedPane(JTabbedPane.RIGHT);
-		mainTabbedPanel.setBounds(40, 30, 1200, 600);
+		mainTabbedPanel.setBounds(40, 40, 1200, 600);
 
 
 		//Users Tab
@@ -243,7 +252,7 @@ public class StorageManagmentSystem implements ActionListener {
 		allUsersPanel.setLayout(null);
 		JLabel admin_Label_L1 = new JLabel("جميع المستخدمين");
 		admin_Label_L1.setFont(new Font("Serif", Font.BOLD,22));
-		admin_Label_L1.setBounds(200,10,200,20);
+		admin_Label_L1.setBounds(200,10,200,30);
 		allUsersPanel.add(admin_Label_L1);
 		String usersTableCol[] = {"الرقم التعريفي","نوع المستخدم","الاسم الاخير","الاسم الاول"};
 		String usersTableData[][] = {	{"111","كاشير","وليد","خالد"},
@@ -270,13 +279,17 @@ public class StorageManagmentSystem implements ActionListener {
 		String[] userTypes = {"مدير","كاشير","مشرف مخزن"};
 		userTypesComBox = new JComboBox(userTypes);
 
-		admin_Label_RT1.setBounds(200,10,200,20);
+		admin_Label_RT1.setBounds(200,10,200,30);
 		admin_Label_RT1.setFont(new Font("Serif", Font.BOLD,22));
-		admin_Label_RT2.setBounds(345,50,150,20);
-		admin_Label_RT3.setBounds(425,100,150,20);
-		ID_field1.setBounds(250,50,90,20);
-		userTypesComBox.setBounds(250,100,90,20);
-		changeType_Button.setBounds(100,100,100,20);
+		admin_Label_RT2.setBounds(290,60,300,30);
+		admin_Label_RT2.setFont(new Font("Serif", Font.PLAIN,16));
+		admin_Label_RT3.setBounds(400,110,150,30);
+		admin_Label_RT3.setFont(new Font("Serif", Font.PLAIN,16));
+		ID_field1.setBounds(180,60,100,30);
+		userTypesComBox.setBounds(270,110,120,30);
+		userTypesComBox.setFont(new Font("Serif", Font.BOLD,16));
+		changeType_Button.setBounds(130,112,100,25);
+		changeType_Button.setFont(new Font("Serif", Font.BOLD,15));
 
 		usersEditPanel_Top.add(admin_Label_RT1);
 		usersEditPanel_Top.add(admin_Label_RT2);
@@ -293,6 +306,7 @@ public class StorageManagmentSystem implements ActionListener {
 
 		usersTab.add(allUsersPanel);
 		usersTab.add(usersEditPanel);
+		
 		mainTabbedPanel.addTab("قائمة المستخدمين", suitcaseIcon,usersTab);
 
 
@@ -326,14 +340,31 @@ public class StorageManagmentSystem implements ActionListener {
 
 		adminStat_Title.setBounds(500,30,100,30);
 		adminStat_Title.setFont(new Font("Serif", Font.BOLD, 22));
-		adminStat_Label1.setBounds(900,100,100,20);
-		adminStat_Label1_data.setBounds (780,100,100,20);
-		adminStat_Label2.setBounds(900,150,100,20);
-		adminStat_Label2_data.setBounds (780,150,50,20);
-		adminStat_Label3.setBounds(900,200,100,20);
-		adminStat_Label3_data.setBounds (780,200,100,20);
+		
+		adminStat_Label1.setBounds(830,100,300,20);
+		adminStat_Label1.setFont(new Font("Serif", Font.PLAIN, 20));
+		
+		adminStat_Label1_data.setBounds (680,100,100,20);
+		adminStat_Label1_data.setFont(new Font("Serif",  Font.PLAIN, 20));
+		
+		adminStat_Label2.setBounds(830,150,300,20);
+		adminStat_Label2.setFont(new Font("Serif",  Font.PLAIN, 20));
+		
+		adminStat_Label2_data.setBounds (680,150,150,20);
+		adminStat_Label2_data.setFont(new Font("Serif",  Font.PLAIN, 20));
+		
+		adminStat_Label3.setBounds(830,200,300,20);
+		adminStat_Label3.setFont(new Font("Serif",  Font.PLAIN, 20));
+		
+		adminStat_Label3_data.setBounds (680,200,100,20);
+		adminStat_Label3_data.setFont(new Font("Serif", Font.PLAIN, 20));
 
-
+		logOut2=new JButton("خروج");
+		logOut2.setBounds(850, 500, 120, 40);
+		logOut2.setFont(new Font("serif", Font.BOLD, 24));
+		logOut2.addActionListener(new StorageManagmentSystem());
+		statsPanel.add(logOut2);
+		
 
 
 		statsPanel.add(adminStat_Title);
@@ -362,15 +393,21 @@ public class StorageManagmentSystem implements ActionListener {
 		JScrollPane scrollPane3 = new JScrollPane(transTable);
 
 
-		admin_Trans_Label1.setBounds(870,50 ,150,20);
-		admin_Trans_Label2.setBounds(880,100,150,20);
-		admin_Trans_Label3.setBounds(600,100,150,20);
-		admin_Trans_TF1.setBounds(730,50,100,20);
-		admin_Trans_TF2.setBounds(730,100,100,20);
-		admin_Trans_TF3.setBounds(480,100,100,20);
-		admin_Trans_B1.setBounds(350,50,60,20);
-		admin_Trans_B2.setBounds(350,100,60,20);
+		admin_Trans_Label1.setBounds(770,50 ,350,30);
+		admin_Trans_Label2.setBounds(780,100,350,30);
+		admin_Trans_Label3.setBounds(450,100,350,30);
+		admin_Trans_TF1.setBounds(590,55,150,25);
+		admin_Trans_TF2.setBounds(630,105,150,25);
+		admin_Trans_TF3.setBounds(310,105,150,25);
+		admin_Trans_B1.setBounds(350,50,120,30);
+		admin_Trans_B2.setBounds(150,100,120,30);
 		scrollPane3.setBounds(10,150,970,400);
+		
+		admin_Trans_Label1.setFont(new Font("Serif", Font.PLAIN, 18));
+		admin_Trans_Label2.setFont(new Font("Serif", Font.PLAIN, 18));
+		admin_Trans_Label3.setFont(new Font("Serif", Font.PLAIN, 18));
+		admin_Trans_B1.setFont(new Font("Serif", Font.BOLD, 18));
+		admin_Trans_B2.setFont(new Font("Serif", Font.BOLD, 18));
 
 		transPanel.add(admin_Trans_Label1);
 		transPanel.add(admin_Trans_Label2);
@@ -389,9 +426,196 @@ public class StorageManagmentSystem implements ActionListener {
 
 		//finalizing admin screen
 		JLabel title = new JLabel("شاشة المدير");
-		title.setBounds(560,10,80,10);
+		title.setBounds(560,10,100,30);
+		title.setFont(new Font("Serif", Font.BOLD, 20));
 		adminFrame.add(title);
 		adminFrame.add(mainTabbedPanel);
+	}
+	
+	
+	public static void casherScreen() {
+		casherFrame=new JFrame("كاشير");
+		JTabbedPane casherPanel=new JTabbedPane(JTabbedPane.RIGHT);
+		JPanel transcPanel=new JPanel(), refundPanel=new JPanel();
+		
+		JTextField quantity,prodID,receipt;
+		JLabel quantityLabel,prodLabel;
+		
+		
+		casherFrame.setSize(1280, 720);
+		casherFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		casherFrame.setResizable(false);
+		ImageIcon purcheseIcon = new ImageIcon("images/purchese.png");
+		ImageIcon refundIcon = new ImageIcon("images/refund.png");
+		casherFrame.add(casherPanel);
+		transcPanel.setLayout(new GridLayout(1,2));
+		refundPanel.setLayout(new GridLayout(1,2));
+		
+
+		
+	//Purchese Tab
+		//Left side for receipt information
+		JPanel tablePanel=new JPanel();
+		tablePanel.setLayout(null);
+		JLabel receiptLabel = new JLabel("المشتريات");
+		receiptLabel.setFont(new Font("Serif", Font.BOLD,22));
+		receiptLabel.setBounds(210,10,200,20);
+		tablePanel.add(receiptLabel);
+		String receiptTableCol[] = {"الرقم التعريفي","الاسم","الكمية","السعر"};
+		String receiptTableData[][] = {	{"11","مسحوق تنظيف","1","23 EGP"},
+										{"125","ديتول","13","140 EGP"},
+										
+									};
+		JTable receiptTable = new JTable(receiptTableData,receiptTableCol);
+		JScrollPane scrollPane = new JScrollPane(receiptTable);
+		scrollPane.setBounds(30,40,450,500);
+		tablePanel.add(scrollPane);
+		
+		transcPanel.add(tablePanel);
+		
+		
+		
+		//right side for input
+		JPanel purchJPanel=new JPanel();
+		purchJPanel.setLayout(null);
+		
+		prodLabel=new JLabel("رقم المنتج");
+		prodLabel.setFont(new Font("serif",Font.PLAIN , 22));
+		prodLabel.setBounds(450, 40, 2000, 40);
+		purchJPanel.add(prodLabel);
+		transcPanel.add(purchJPanel);
+		
+		prodID=new JTextField(50);
+		prodID.setBounds(350, 80, 150, 30);
+		purchJPanel.add(prodID);
+		
+		quantityLabel=new JLabel("الكمية");
+		quantityLabel.setFont(new Font("serif",Font.PLAIN , 22));
+		quantityLabel.setBounds(250, 40, 2000, 40);
+		purchJPanel.add(quantityLabel);
+		
+		quantity=new JTextField(50);
+		quantity.setBounds(130, 80, 150, 30);
+		purchJPanel.add(quantity);
+		
+		add =new JButton("إضافة");
+		add.setBounds(400,130,100,30);
+		add.setFont(new Font("serif", Font.BOLD, 18));
+		add.addActionListener(new StorageManagmentSystem());
+		purchJPanel.add(add);
+		
+		remove =new JButton("إزالة");
+		remove.setBounds(280,130,100,30);
+		remove.setFont(new Font("serif", Font.BOLD, 18));
+		remove.addActionListener(new StorageManagmentSystem());
+		purchJPanel.add(remove);
+		
+		
+		//total
+		JLabel total=new JLabel("الثمن");
+		JLabel sum=new JLabel("163 EGP");	
+		total.setFont(new Font("serif", Font.PLAIN, 35));
+		sum.setFont(new Font("serif", Font.PLAIN, 27));
+		total.setBounds(200, 300, 150, 40);
+		purchJPanel.add(total);
+		sum.setBounds(180, 340, 400, 40);
+		purchJPanel.add(sum);
+		
+		pay=new JButton("دفع");
+		pay.setFont(new Font("serif", Font.PLAIN, 22));
+		pay.setBounds(400, 350, 100, 30);
+		purchJPanel.add(pay);
+		
+		//Log out
+		logOut1=new JButton("خروج");
+		logOut1.setBounds(410, 600, 120, 40);
+		logOut1.setFont(new Font("serif", Font.BOLD, 24));
+		logOut1.addActionListener(new StorageManagmentSystem());
+		purchJPanel.add(logOut1);
+		
+		
+		
+		
+	//Refund Tab
+		
+		//Left side for receipt information
+				JPanel refundRecieptPanel=new JPanel();
+				refundRecieptPanel.setLayout(null);
+				JLabel refundtLabel = new JLabel("وصل");
+				refundtLabel.setFont(new Font("Serif", Font.BOLD,22));
+				refundtLabel.setBounds(240,10,200,20);
+				refundRecieptPanel.add(refundtLabel);
+				String refundTableCol[] = {"الرقم التعريفي","الاسم","الكمية","السعر","وصل رقم"};
+				String refundTableData[][] = {	{"11","مسحوق تنظيف","1","23 EGP","1498"},
+												{"125","ديتول","13","140 EGP","1498"},
+												
+											};
+				JTable refundTable = new JTable(refundTableData,refundTableCol);
+				JScrollPane scrollPane2 = new JScrollPane(refundTable);
+				scrollPane2.setBounds(30,40,450,500);
+				refundRecieptPanel.add(scrollPane2);
+				
+				refundPanel.add(refundRecieptPanel);
+				
+		//Right side
+				JPanel inputPanel=new JPanel();
+				inputPanel.setLayout(null);
+				JLabel receiptName=new JLabel("رقم الوصل");
+				receiptName.setBounds(450,50,100,30);
+				receiptName.setFont(new Font("Serif", Font.PLAIN,20));
+				inputPanel.add(receiptName);
+				
+				JTextField receiptID=new JTextField(150);
+				receiptID.setBounds(200, 80, 300, 30);
+				inputPanel.add(receiptID);
+				
+				check =new JButton("بحث");
+				check.setBounds(400,130,100,30);
+				check.setFont(new Font("serif", Font.BOLD, 18));
+				check.addActionListener(new StorageManagmentSystem());
+				inputPanel.add(check);
+				
+				JLabel removeLabel=new JLabel("إزالة");
+				removeLabel.setFont(new Font("serif", Font.BOLD, 30));
+				removeLabel.setBounds(470,250,150,40);
+				inputPanel.add(removeLabel);
+				
+				JLabel idLabel=new JLabel("رقم المنتج");
+				
+				idLabel.setFont(new Font("serif",Font.PLAIN , 20));
+				idLabel.setBounds(450, 300, 200, 40);
+				inputPanel.add(idLabel);
+				
+				JTextField refProdID= new JTextField(50);
+				refProdID.setBounds(350, 335, 150, 30);
+				inputPanel.add(refProdID);
+				
+				
+				JLabel quanLabel=new JLabel("الكمية");
+				quanLabel.setFont(new Font("serif",Font.PLAIN , 22));
+				quanLabel.setBounds(250, 300, 2000, 40);
+				inputPanel.add(quanLabel);
+				
+				JTextField quan=new JTextField(50);
+				quan.setBounds(130, 335, 150, 30);
+				inputPanel.add(quan);
+				
+				
+				refund=new JButton("إزالة");
+				refund.setFont(new Font("serif",Font.BOLD , 18));
+				refund.setBounds(400, 380, 100, 30);
+				inputPanel.add(refund);
+				refundPanel.add(inputPanel);
+				
+				
+		
+		
+		
+		casherPanel.addTab("الدفع",purcheseIcon,transcPanel);
+		casherPanel.addTab("استرداد", refundIcon,refundPanel);
+		
+		casherFrame.setVisible(true);
+		
 	}
 	
 	
@@ -404,11 +628,20 @@ public class StorageManagmentSystem implements ActionListener {
 			
 		}
 		if(e.getSource()==sign) {
-			adminScreen();
+			casherScreen();
 			signFrame.dispose();
 			
 		}
-
+		if(e.getSource()==logOut1 ) {
+			LoginForm();
+			casherFrame.dispose();
+			
+		}
+		if(e.getSource()==logOut2) {
+			LoginForm();
+			
+			adminFrame.dispose();
+		}
 		/*not sure if it can be used later or not
 		if(e.getSource()==userTypesBox)
 
